@@ -1,7 +1,8 @@
 const FORCE_WIN = false;
-const USE_FIXED_WINNING_NUMBERS = true;
-const FIXED_WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
 const WINNING_NUMBERS_COUNT = 6;
+const DRAW_MODE_RANDOM = "random";
+const DRAW_MODE_FIXED = "fixed";
+const FIXED_WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
 const EMAIL_REGEX = /^(?=.{9,29}$)[^@\s]+@[^@\s]+\.[a-zA-Z]{2,3}$/;
 
 const resultElement = document.getElementById("result");
@@ -19,25 +20,29 @@ const areLotoNumbersValid = (lotoNumbers) => {
   );
 };
 
-const generateWinningNumbers = (playerNumbers) => {
+const generateRandomWinningNumbers = () => {
+  return Array.from({ length: WINNING_NUMBERS_COUNT }, () => {
+    return Math.floor(Math.random() * 49) + 1;
+  });
+};
+
+const generateWinningNumbers = (playerNumbers, drawMode) => {
   if (FORCE_WIN) {
     return [...playerNumbers];
   }
 
-  if (USE_FIXED_WINNING_NUMBERS) {
+  if (drawMode === DRAW_MODE_FIXED) {
     return [...FIXED_WINNING_NUMBERS];
   }
 
-  return Array.from({ length: WINNING_NUMBERS_COUNT }, () => {
-    return Math.floor(Math.random() * 49) + 1;
-  });
+  return generateRandomWinningNumbers();
 };
 
 const hasWinningGrid = (playerNumbers, winningNumbers) => {
   return playerNumbers.every((number) => winningNumbers.includes(number));
 };
 
-const checkLoto = (firstname, lastname, email, lotoNumbers) => {
+const checkLoto = (firstname, lastname, email, lotoNumbers, drawMode) => {
   if (firstname.trim() === "") {
     return "Veuillez fournir un prénom";
   }
@@ -58,11 +63,11 @@ const checkLoto = (firstname, lastname, email, lotoNumbers) => {
     return "Veuillez fournir 6 nombres valides";
   }
 
-  const winningNumbers = generateWinningNumbers(lotoNumbers);
+  const winningNumbers = generateWinningNumbers(lotoNumbers, drawMode);
   const isWinningGrid = hasWinningGrid(lotoNumbers, winningNumbers);
 
   if (isWinningGrid) {
-    return "Félicitations, vous avez gagné 1 million!!!!!";
+    return "Félicitations gros baiseur , vous avez gagné 1 million!!!!!";
   }
 
   return `Désolé, vous avez perdu, les nombres gagnants sont: ${winningNumbers.join(", ")}`;
@@ -86,9 +91,10 @@ lotoForm.addEventListener("submit", (event) => {
   const firstname = document.getElementById("firstname").value;
   const lastname = document.getElementById("lastname").value;
   const email = document.getElementById("email").value;
+  const drawMode = document.getElementById("draw-mode").value;
   const lotoNumbers = getLotoNumbersFromForm();
 
-  const message = checkLoto(firstname, lastname, email, lotoNumbers);
+  const message = checkLoto(firstname, lastname, email, lotoNumbers, drawMode);
 
   resultElement.textContent = message;
 });

@@ -105,11 +105,13 @@ legend {
 }
 
 input,
+select,
 button {
   font: inherit;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 14px 16px;
   border: 1px solid rgba(74, 58, 40, 0.16);
@@ -123,11 +125,13 @@ input {
     background-color 220ms ease;
 }
 
-input:hover {
+input:hover,
+select:hover {
   border-color: rgba(140, 90, 43, 0.3);
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: rgba(140, 90, 43, 0.64);
   box-shadow: 0 0 0 4px rgba(140, 90, 43, 0.14);

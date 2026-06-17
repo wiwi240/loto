@@ -19,6 +19,7 @@ The user fills in a form with:
 - a first name;
 - a last name;
 - an email address;
+- a draw mode;
 - 6 lotto numbers.
 
 When the submit button is clicked, the form submission is intercepted with `event.preventDefault()`. The input data is then validated before comparing the player's grid with the winning numbers.
@@ -80,55 +81,21 @@ If the grid wins:
 Félicitations, vous avez gagné 1 million!!!!!
 ```
 
-## Test mode
+## Draw modes
 
-The [index.js](/home/mon_pc/project/github/module%20thp/index.js) file currently contains these constants:
+The form now includes a draw mode selector:
+
+- `Aléatoire`: 6 winning numbers are generated randomly
+- `Fixe (1, 2, 3, 4, 5, 6)`: the winning grid is always `1, 2, 3, 4, 5, 6`
+
+If the user enters exactly `1, 2, 3, 4, 5, 6` in fixed mode, they win.
+
+## Force win
+
+The [index.js](/home/mon_pc/project/github/module%20thp/index.js) file still contains:
 
 ```js
 const FORCE_WIN = false;
-const USE_FIXED_WINNING_NUMBERS = true;
-const FIXED_WINNING_NUMBERS = [1, 2, 3, 4, 5, 6];
 ```
 
-### Case 1: test a win with fixed numbers
-
-Right now, `USE_FIXED_WINNING_NUMBERS` is set to `true`.
-
-The fixed winning grid is:
-
-```txt
-1, 2, 3, 4, 5, 6
-```
-
-If the user enters exactly these 6 numbers, they win.
-
-### Case 2: force a win regardless of the grid
-
-Set:
-
-```js
-const FORCE_WIN = true;
-```
-
-In that case, the winning numbers become identical to the player's numbers.
-
-### Case 3: go back to random drawing
-
-Set:
-
-```js
-const USE_FIXED_WINNING_NUMBERS = false;
-const FORCE_WIN = false;
-```
-
-In that case, the 6 winning numbers are generated randomly.
-
-## Current limitation
-
-The project works, but the default behavior is currently test-oriented because `USE_FIXED_WINNING_NUMBERS` is set to `true`.
-
-If you want strict compliance with the original exercise statement, you should set:
-
-```js
-const USE_FIXED_WINNING_NUMBERS = false;
-```
+If you set it to `true`, the winning numbers become identical to the player's numbers, regardless of the selected draw mode.
