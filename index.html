@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loto</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1>Loto</h1>
+
+      <form id="loto-form">
+        <div class="field-group">
+          <label for="firstname">Prénom</label>
+          <input id="firstname" name="firstname" type="text" />
+        </div>
+
+        <div class="field-group">
+          <label for="lastname">Nom</label>
+          <input id="lastname" name="lastname" type="text" />
+        </div>
+
+        <div class="field-group">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" />
+        </div>
+
+        <fieldset class="numbers-group">
+          <legend>6 numéros de loto</legend>
+
+          <input type="number" name="loto-number" />
+          <input type="number" name="loto-number" />
+          <input type="number" name="loto-number" />
+          <input type="number" name="loto-number" />
+          <input type="number" name="loto-number" />
+          <input type="number" name="loto-number" />
+        </fieldset>
+
+        <button type="submit">Valider</button>
+      </form>
+
+      <p id="result" aria-live="polite"></p>
+    </main>
+
+    <script src="index.js"></script>
+  </body>
+</html>
